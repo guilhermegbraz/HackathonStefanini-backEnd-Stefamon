@@ -1,4 +1,4 @@
-package com.stefanini.dao;
+package com.stefanini.dataproviders.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

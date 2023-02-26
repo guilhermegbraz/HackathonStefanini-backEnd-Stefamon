@@ -1,4 +1,4 @@
-package com.stefanini.entity;
+package com.stefanini.dataproviders.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Table(schema = "tb_jogador")
-public class Jogador {
+@Entity(name = "Jogador")
+public class JogadorEntity {
 
     @Id
     @Column(name = "id_jogador")
@@ -27,8 +28,8 @@ public class Jogador {
     @JoinTable(name = "Jogador_Stefamon",
             joinColumns = {@JoinColumn(name = "IdJogador")},
             inverseJoinColumns = {@JoinColumn(name = "IdStefamon")})
-    private List<Stefamon> stefamons = new ArrayList<>();
+    private List<StefamonEntity> stefamons = new ArrayList<>();
 
-    public Jogador() {
+    public JogadorEntity() {
     }
 }

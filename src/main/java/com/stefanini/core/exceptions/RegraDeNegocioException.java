@@ -1,4 +1,4 @@
-package com.stefanini.exceptions;
+package com.stefanini.core.exceptions;
 
 import javax.ws.rs.core.Response;
 

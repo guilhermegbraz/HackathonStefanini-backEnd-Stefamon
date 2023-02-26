@@ -1,6 +1,6 @@
-package com.stefanini.resources;
+package com.stefanini.entrypoint.resources;
 
-import com.stefanini.entity.Jogador;
+import com.stefanini.dataproviders.entity.JogadorEntity;
 import com.stefanini.service.JogadorService;
 
 import javax.inject.Inject;
@@ -8,7 +8,7 @@ import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
-@ApplicationPath("/jogador")
+@Path("/jogador")
 public class JogadorResource {
 
     @Inject
@@ -27,13 +27,13 @@ public class JogadorResource {
     }
 
     @POST
-    public Response salvar(@Valid Jogador jogador) {
+    public Response salvar(@Valid JogadorEntity jogador) {
         jogadorService.salvar(jogador);
         return Response.status(Response.Status.CREATED).build();
     }
 
     @POST
-    public Response alterar(@Valid Jogador jogador) {
+    public Response alterar(@Valid JogadorEntity jogador) {
         jogadorService.alterar(jogador);
         return Response.status(Response.Status.OK).build();
     }

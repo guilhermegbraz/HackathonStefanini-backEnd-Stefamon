@@ -1,4 +1,4 @@
-package com.stefanini.handlers;
+package com.stefanini.entrypoint.handlers;
 
 import javax.persistence.PersistenceException;
 import javax.ws.rs.core.MediaType;
