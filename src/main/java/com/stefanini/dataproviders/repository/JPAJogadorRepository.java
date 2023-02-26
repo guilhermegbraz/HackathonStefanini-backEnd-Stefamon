@@ -49,4 +49,9 @@ public class JPAJogadorRepository extends GenericDAO<JogadorEntity, Long> implem
         if(jogadorEntity == null) return null;
         return this.jogadorEntityToJogador.execute(jogadorEntity);
     }
+
+    @Override
+    public void deletar(Long id) {
+        this.delete(id);
+    }
 }
