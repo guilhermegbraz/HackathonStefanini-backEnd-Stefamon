@@ -1,5 +1,6 @@
 package com.stefanini.core.repositorios;
 
+import com.stefanini.core.casosDeUso.login.LoginJogadorDto;
 import com.stefanini.core.entidades.Jogador;
 
 import java.util.List;
@@ -11,4 +12,6 @@ public interface JogadorRepository {
     Jogador pegarPorId(Long id);
 
     void deletar(Long id);
+
+    boolean jogadorCadastrado(LoginJogadorDto loginJogadorDto);
 }
