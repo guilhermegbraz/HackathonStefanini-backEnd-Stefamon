@@ -9,4 +9,6 @@ public interface JogadorRepository {
     boolean nicknameJaCadastrado(String nickname);
     List<Jogador> listarJogadores();
     Jogador pegarPorId(Long id);
+
+    void deletar(Long id);
 }
