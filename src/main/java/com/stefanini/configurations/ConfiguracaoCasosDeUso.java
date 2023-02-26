@@ -4,6 +4,8 @@ import com.stefanini.core.casosDeUso.criarJogador.CriarJogador;
 import com.stefanini.core.casosDeUso.criarJogador.validacoes.*;
 import com.stefanini.core.casosDeUso.criptografarSenha.Criptografador;
 import com.stefanini.core.casosDeUso.criptografarSenha.CriptografarSenhaBase64;
+import com.stefanini.core.casosDeUso.listarJogadores.ListarJogadores;
+import com.stefanini.core.casosDeUso.parsers.JogadorToJogadorViewDto;
 import com.stefanini.core.repositorios.JogadorRepository;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -33,5 +35,10 @@ public class ConfiguracaoCasosDeUso {
                 new ValidadorSenhaObrigatoria(), new ValidadorTamanhoSenha());
     }
 
+    @Produces
+    @ApplicationScoped
+    public ListarJogadores listarJogadores(JogadorRepository jogadorRepository) {
+        return new ListarJogadores(jogadorRepository,new JogadorToJogadorViewDto());
+    }
 
 }
