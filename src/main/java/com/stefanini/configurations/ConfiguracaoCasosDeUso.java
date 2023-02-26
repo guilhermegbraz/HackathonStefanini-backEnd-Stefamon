@@ -7,6 +7,7 @@ import com.stefanini.core.casosDeUso.criptografarSenha.CriptografarSenhaBase64;
 import com.stefanini.core.casosDeUso.deletarJogador.DeletarJogador;
 import com.stefanini.core.casosDeUso.detalharUmJogador.DetalharUmJogador;
 import com.stefanini.core.casosDeUso.listarJogadores.ListarJogadores;
+import com.stefanini.core.casosDeUso.login.LoginJogador;
 import com.stefanini.core.casosDeUso.parsers.JogadorToJogadorViewDto;
 import com.stefanini.core.repositorios.JogadorRepository;
 
@@ -53,5 +54,11 @@ public class ConfiguracaoCasosDeUso {
     @ApplicationScoped
     public DeletarJogador deletarJogador(JogadorRepository jogadorRepository) {
         return new DeletarJogador(jogadorRepository);
+    }
+
+    @Produces
+    @ApplicationScoped
+    public LoginJogador loginJogador(JogadorRepository jogadorRepository, Criptografador criptografador) {
+        return new LoginJogador(jogadorRepository, criptografador);
     }
 }
