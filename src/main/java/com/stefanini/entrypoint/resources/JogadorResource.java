@@ -1,8 +1,10 @@
 package com.stefanini.entrypoint.resources;
 
 import com.stefanini.core.casosDeUso.criarJogador.CriarJogador;
+import com.stefanini.core.casosDeUso.deletarJogador.DeletarJogador;
 import com.stefanini.core.casosDeUso.detalharUmJogador.DetalharUmJogador;
 import com.stefanini.core.casosDeUso.listarJogadores.ListarJogadores;
+import com.stefanini.core.casosDeUso.viewJogador.JogadorViewDto;
 import com.stefanini.core.exceptions.RegraDeNegocioException;
 import com.stefanini.dataproviders.entity.JogadorEntity;
 import com.stefanini.dataproviders.repository.JPAJogadorRepository;
@@ -22,13 +24,6 @@ import java.net.URI;
 
 @Path("/jogador")
 public class JogadorResource {
-
-    @Inject
-    CriarJogador criarJogador;
-    @Inject
-    ListarJogadores listarJogadores;
-    @Inject
-    DetalharUmJogador detalharUmJogador;
     @Inject
     CriarJogadorDtoToJogador criarJogadorDtoToJogador;
     @Inject
@@ -37,6 +32,16 @@ public class JogadorResource {
     RegraDeNegocioHandler regraDeNegocioHandler;
     @Inject
     ConstraintViolationHandler constraintViolationHandler;
+// casos de uso:
+    @Inject
+    CriarJogador criarJogador;
+    @Inject
+    ListarJogadores listarJogadores;
+    @Inject
+    DetalharUmJogador detalharUmJogador;
+    @Inject
+    DeletarJogador deletarJogador;
+
 
     @POST
     public Response salvar( CriarJogadorDto jogador) {
@@ -54,7 +59,13 @@ public class JogadorResource {
     @GET
     @Path("/{id}")
     public Response pegarPorId(@PathParam("id") Long id){
-        return Response.status(Response.Status.OK).entity(this.detalharUmJogador.execute(id)).build();
+        try{
+            JogadorViewDto jogador = this.detalharUmJogador.execute(id);
+            return Response.status(Response.Status.OK).entity(jogador).build();
+        } catch (RegraDeNegocioException exception) {
+            return this.regraDeNegocioHandler.toResponse(exception);
+        }
+
     }
 
     @GET
@@ -74,8 +85,12 @@ public class JogadorResource {
     @DELETE
     @Path("/{id}")
     public Response deletar(@PathParam("id") Long id) {
-        jogadorRepository.delete(id);
-        return Response.status(Response.Status.NO_CONTENT).build();
+        try {
+            this.deletarJogador.execute(id);
+            return Response.status(Response.Status.NO_CONTENT).build();
+        }catch (RegraDeNegocioException exception) {
+            return this.regraDeNegocioHandler.toResponse(exception);
+        }
     }
 
 
