@@ -1,12 +1,13 @@
 package com.stefanini.entrypoint.handlers;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.PersistenceException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-@Provider
+@ApplicationScoped
 public class ConstraintViolationHandler implements ExceptionMapper<PersistenceException> {
     @Override
     public Response toResponse(PersistenceException e) {
