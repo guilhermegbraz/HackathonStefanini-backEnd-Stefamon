@@ -8,4 +8,5 @@ public interface JogadorRepository {
     Long cadastrarJogador(Jogador jogador);
     boolean nicknameJaCadastrado(String nickname);
     List<Jogador> listarJogadores();
+    Jogador pegarPorId(Long id);
 }

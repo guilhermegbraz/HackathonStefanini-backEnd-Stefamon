@@ -42,4 +42,11 @@ public class JPAJogadorRepository extends GenericDAO<JogadorEntity, Long> implem
 
         return this.jogadorEntityToJogador.execute((jogadoresEntity));
     }
+
+    @Override
+    public Jogador pegarPorId(Long id) {
+        JogadorEntity jogadorEntity = this.findById(id);
+        if(jogadorEntity == null) return null;
+        return this.jogadorEntityToJogador.execute(jogadorEntity);
+    }
 }

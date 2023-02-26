@@ -1,6 +1,7 @@
 package com.stefanini.entrypoint.resources;
 
 import com.stefanini.core.casosDeUso.criarJogador.CriarJogador;
+import com.stefanini.core.casosDeUso.listarJogadores.ListarJogadores;
 import com.stefanini.core.exceptions.RegraDeNegocioException;
 import com.stefanini.dataproviders.entity.JogadorEntity;
 import com.stefanini.dataproviders.repository.JPAJogadorRepository;
@@ -23,6 +24,8 @@ public class JogadorResource {
 
     @Inject
     CriarJogador criarJogador;
+    @Inject
+    ListarJogadores listarJogadores;
     @Inject
     CriarJogadorDtoToJogador criarJogadorDtoToJogador;
     @Inject
@@ -54,7 +57,7 @@ public class JogadorResource {
     @GET
     @Path("/todos")
     public Response listarTodos(){
-        return Response.status(Response.Status.OK).entity(jogadorRepository.listAll()).build();
+        return Response.status(Response.Status.OK).entity(this.listarJogadores.execute()).build();
     }
 
 

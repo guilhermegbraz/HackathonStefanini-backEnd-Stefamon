@@ -55,4 +55,8 @@ public class Jogador {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+    public Long getId() {
+        return this.id;
+    }
 }
