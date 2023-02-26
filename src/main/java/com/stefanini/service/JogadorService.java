@@ -1,38 +1,42 @@
 package com.stefanini.service;
 
-import com.stefanini.entity.Jogador;
-import com.stefanini.exceptions.RegraDeNegocioException;
-import com.stefanini.repository.JogadorRepository;
+import com.stefanini.dataproviders.entity.JogadorEntity;
+import com.stefanini.core.exceptions.RegraDeNegocioException;
+import com.stefanini.dataproviders.repository.JPAJogadorRepository;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.Objects;
 
+@ApplicationScoped
 public class JogadorService {
 
-    JogadorRepository jogadorRepository;
+    @Inject
+    JPAJogadorRepository JPAJogadorRepository;
 
-    public void salvar(Jogador jogador) {
-        jogadorRepository.save(jogador);
+    public void salvar(JogadorEntity jogador) {
+        JPAJogadorRepository.save(jogador);
     }
 
-    public Jogador pegarPorId(Long id) {
-        var jogador = jogadorRepository.findById(id);
+    public JogadorEntity pegarPorId(Long id) {
+        var jogador = JPAJogadorRepository.findById(id);
         if(Objects.isNull(jogador)) {
             throw new RegraDeNegocioException("Ocorreu um erro ao buscar o Jogador de id " + id, Response.Status.NOT_FOUND);
         }
         return jogador;
     }
 
-    public void alterar(Jogador jogador) {
-        jogadorRepository.update(jogador);
+    public void alterar(JogadorEntity jogador) {
+        JPAJogadorRepository.update(jogador);
     }
 
     public void deletar(Long id) {
-        jogadorRepository.delete(id);
+        JPAJogadorRepository.delete(id);
     }
 
-    public List<Jogador> listarTodos() {
-        return jogadorRepository.listAll();
+    public List<JogadorEntity> listarTodos() {
+        return JPAJogadorRepository.listAll();
     }
 }
