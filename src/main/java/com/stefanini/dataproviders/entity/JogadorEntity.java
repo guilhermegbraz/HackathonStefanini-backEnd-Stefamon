@@ -5,8 +5,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-@Table(schema = "tb_jogador")
 @Entity(name = "Jogador")
+@Table(schema = "tb_jogador")
 public class JogadorEntity {
 
     @Id
@@ -31,5 +31,32 @@ public class JogadorEntity {
     private List<StefamonEntity> stefamons = new ArrayList<>();
 
     public JogadorEntity() {
+    }
+
+    public JogadorEntity(String nickname, String password, BigDecimal saldo, List<StefamonEntity> stefamons) {
+        this.nickname = nickname;
+        this.password = password;
+        this.saldo = saldo;
+        this.stefamons = stefamons;
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public BigDecimal getSaldo() {
+        return saldo;
+    }
+
+    public List<StefamonEntity> getStefamons() {
+        return stefamons;
     }
 }
