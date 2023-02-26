@@ -4,15 +4,16 @@ import com.stefanini.core.casosDeUso.criarJogador.CriarJogador;
 import com.stefanini.core.casosDeUso.deletarJogador.DeletarJogador;
 import com.stefanini.core.casosDeUso.detalharUmJogador.DetalharUmJogador;
 import com.stefanini.core.casosDeUso.listarJogadores.ListarJogadores;
+import com.stefanini.core.casosDeUso.login.LoginJogador;
 import com.stefanini.core.casosDeUso.viewJogador.JogadorViewDto;
 import com.stefanini.core.exceptions.RegraDeNegocioException;
 import com.stefanini.dataproviders.entity.JogadorEntity;
 import com.stefanini.dataproviders.repository.JPAJogadorRepository;
 import com.stefanini.entrypoint.dto.CriarJogadorDto;
+import com.stefanini.core.casosDeUso.login.LoginJogadorDto;
 import com.stefanini.entrypoint.handlers.ConstraintViolationHandler;
 import com.stefanini.entrypoint.handlers.RegraDeNegocioHandler;
 import com.stefanini.entrypoint.parsers.CriarJogadorDtoToJogador;
-import com.stefanini.service.JogadorService;
 
 import javax.inject.Inject;
 import javax.persistence.PersistenceException;
@@ -41,6 +42,8 @@ public class JogadorResource {
     DetalharUmJogador detalharUmJogador;
     @Inject
     DeletarJogador deletarJogador;
+    @Inject
+    LoginJogador loginJogador;
 
 
     @POST
@@ -89,6 +92,17 @@ public class JogadorResource {
             this.deletarJogador.execute(id);
             return Response.status(Response.Status.NO_CONTENT).build();
         }catch (RegraDeNegocioException exception) {
+            return this.regraDeNegocioHandler.toResponse(exception);
+        }
+    }
+
+    @POST
+    @Path("/login")
+    public Response login(LoginJogadorDto loginJogadorDto) {
+        try{
+            this.loginJogador.usuarioCadastrado(loginJogadorDto);
+            return Response.status(Response.Status.NO_CONTENT).build();
+        } catch (RegraDeNegocioException exception) {
             return this.regraDeNegocioHandler.toResponse(exception);
         }
     }
