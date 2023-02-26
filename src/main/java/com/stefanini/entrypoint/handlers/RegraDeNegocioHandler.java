@@ -1,6 +1,6 @@
-package com.stefanini.handlers;
+package com.stefanini.entrypoint.handlers;
 
-import com.stefanini.exceptions.RegraDeNegocioException;
+import com.stefanini.core.exceptions.RegraDeNegocioException;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;

@@ -1,4 +1,4 @@
-package com.stefanini.dto;
+package com.stefanini.entrypoint.dto;
 
 public class StefamonDTO {
 
