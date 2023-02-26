@@ -1,5 +1,6 @@
 package com.stefanini.dataproviders.repository;
 
+import com.stefanini.core.casosDeUso.login.LoginJogadorDto;
 import com.stefanini.core.entidades.Jogador;
 import com.stefanini.dataproviders.dao.GenericDAO;
 
@@ -10,6 +11,7 @@ import com.stefanini.dataproviders.parsers.StefamonEntityToStefamon;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -53,5 +55,15 @@ public class JPAJogadorRepository extends GenericDAO<JogadorEntity, Long> implem
     @Override
     public void deletar(Long id) {
         this.delete(id);
+    }
+
+    @Override
+    public boolean jogadorCadastrado(LoginJogadorDto loginJogadorDto) {
+        TypedQuery<JogadorEntity> query = this.createQuery("SELECT j FROM Jogador j " +
+                "WHERE j.nickname = :nickname and j.password =:senha");
+        query.setParameter("nickname", loginJogadorDto.getNickname());
+        query.setParameter("senha", loginJogadorDto.getSenha());
+        JogadorEntity resultado = query.getSingleResult();
+        return resultado != null;
     }
 }
