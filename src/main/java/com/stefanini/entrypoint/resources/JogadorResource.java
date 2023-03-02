@@ -17,12 +17,16 @@ import com.stefanini.entrypoint.parsers.CriarJogadorDtoToJogador;
 
 import javax.inject.Inject;
 import javax.persistence.PersistenceException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
 
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 @Path("/jogador")
 public class JogadorResource {
     @Inject
@@ -98,10 +102,12 @@ public class JogadorResource {
 
     @POST
     @Path("/login")
-    public Response login(LoginJogadorDto loginJogadorDto) {
+    public Response login(LoginJogadorDto loginJogadorDto, HttpServletRequest request) {
         try{
-            this.loginJogador.usuarioCadastrado(loginJogadorDto);
-            return Response.status(Response.Status.NO_CONTENT).build();
+            var jogador = this.loginJogador.usuarioCadastrado(loginJogadorDto);
+            request.getSession().setAttribute("USER", jogador);
+            return Response.ok(jogador).header("JSESSIONID", request.getSession().getId()).build();
+
         } catch (RegraDeNegocioException exception) {
             return this.regraDeNegocioHandler.toResponse(exception);
         }

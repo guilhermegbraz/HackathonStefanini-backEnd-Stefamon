@@ -13,7 +13,6 @@ import com.stefanini.core.repositorios.JogadorRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.Produces;
-import java.util.Arrays;
 import java.util.List;
 
 public class ConfiguracaoCasosDeUso {
@@ -59,6 +58,6 @@ public class ConfiguracaoCasosDeUso {
     @Produces
     @ApplicationScoped
     public LoginJogador loginJogador(JogadorRepository jogadorRepository, Criptografador criptografador) {
-        return new LoginJogador(jogadorRepository, criptografador);
+        return new LoginJogador(jogadorRepository, criptografador, new JogadorToJogadorViewDto());
     }
 }

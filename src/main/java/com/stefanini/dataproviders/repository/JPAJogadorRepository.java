@@ -7,11 +7,9 @@ import com.stefanini.dataproviders.dao.GenericDAO;
 import com.stefanini.dataproviders.entity.JogadorEntity;
 import com.stefanini.dataproviders.parsers.JogadorEntityToJogador;
 import com.stefanini.dataproviders.parsers.JogadorToJogadorEntity;
-import com.stefanini.dataproviders.parsers.StefamonEntityToStefamon;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -58,12 +56,12 @@ public class JPAJogadorRepository extends GenericDAO<JogadorEntity, Long> implem
     }
 
     @Override
-    public boolean jogadorCadastrado(LoginJogadorDto loginJogadorDto) {
+    public Jogador jogadorCadastrado(LoginJogadorDto loginJogadorDto) {
         TypedQuery<JogadorEntity> query = this.createQuery("SELECT j FROM Jogador j " +
                 "WHERE j.nickname = :nickname and j.password =:senha");
         query.setParameter("nickname", loginJogadorDto.getNickname());
         query.setParameter("senha", loginJogadorDto.getSenha());
-        JogadorEntity resultado = query.getSingleResult();
-        return resultado != null;
+        JogadorEntity jogadorEntity = query.getSingleResult();
+        return this.jogadorEntityToJogador.execute(jogadorEntity);
     }
 }

@@ -13,5 +13,5 @@ public interface JogadorRepository {
 
     void deletar(Long id);
 
-    boolean jogadorCadastrado(LoginJogadorDto loginJogadorDto);
+    Jogador jogadorCadastrado(LoginJogadorDto loginJogadorDto);
 }
