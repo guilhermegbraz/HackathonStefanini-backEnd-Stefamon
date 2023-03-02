@@ -2,7 +2,7 @@ package com.stefanini.service;
 
 import com.stefanini.dataproviders.entity.StefamonEntity;
 import com.stefanini.core.exceptions.RegraDeNegocioException;
-import com.stefanini.dataproviders.repository.StefamonRepository;
+import com.stefanini.dataproviders.repository.JPAStefamonRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -14,7 +14,7 @@ import java.util.Objects;
 public class StefamonService {
 
     @Inject
-    StefamonRepository repository;
+    JPAStefamonRepository repository;
 
     public List<StefamonEntity> listarTodos(){
         return repository.listAll();

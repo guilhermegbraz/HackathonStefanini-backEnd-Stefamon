@@ -1,6 +1,6 @@
 package com.stefanini.core.entidades;
 
-public class StefaMon {
+public class Stefamon {
     private final Long id;
     private final String nome;
     private final Integer vida;
@@ -11,7 +11,7 @@ public class StefaMon {
     private final Integer velocidade;
     private final String urlFoto;
 
-    public StefaMon(Long id, String nome, Integer vida, Integer ataque, Integer defesa, Integer inteligencia, Integer poder, Integer velocidade, String urlFoto) {
+    public Stefamon(Long id, String nome, Integer vida, Integer ataque, Integer defesa, Integer inteligencia, Integer poder, Integer velocidade, String urlFoto) {
         this.id = id;
         this.nome = nome;
         this.vida = vida;
