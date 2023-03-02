@@ -11,23 +11,23 @@ public class Jogador {
 
     private String senha;
 
-    private List<StefaMon> listaStefaMons;
+    private List<Stefamon> listaStefamons;
 
     private BigDecimal saldo;
 
-    public Jogador(String nickname, String senha, List<StefaMon> stefaMons) {
+    public Jogador(String nickname, String senha, List<Stefamon> stefamons) {
         this.nickname = nickname;
         this.senha = senha;
         this.saldo = BigDecimal.valueOf(2300);
-        this.listaStefaMons = stefaMons;
+        this.listaStefamons = stefamons;
     }
 
-    public Jogador(Long id, String nickname, String senha, List<StefaMon> listaStefaMons, BigDecimal saldo) {
+    public Jogador(Long id, String nickname, String senha, List<Stefamon> listaStefamons, BigDecimal saldo) {
         this.id = id;
         this.nickname = nickname;
         this.senha = senha;
         this.saldo = saldo;
-        this.listaStefaMons = listaStefaMons;
+        this.listaStefamons = listaStefamons;
     }
 
 
@@ -40,12 +40,12 @@ public class Jogador {
         return senha;
     }
 
-    public List<StefaMon> getListaStefaMons() {
-        return Collections.unmodifiableList(listaStefaMons);
+    public List<Stefamon> getListaStefaMons() {
+        return Collections.unmodifiableList(listaStefamons);
     }
 
-    public void addStefamon(StefaMon stefamon) {
-        this.listaStefaMons.add(stefamon);
+    public void addStefamon(Stefamon stefamon) {
+        this.listaStefamons.add(stefamon);
     }
 
     public BigDecimal getSaldo() {
@@ -58,5 +58,9 @@ public class Jogador {
 
     public Long getId() {
         return this.id;
+    }
+
+    public void decrementarSaldo(BigDecimal decremento) {
+        this.saldo = saldo.subtract(decremento);
     }
 }
