@@ -18,6 +18,6 @@ public class StefamonToStefamonEntity {
     public List<StefamonEntity> execute(List<Stefamon> listaStefamons) {
         List<StefamonEntity> stefaMons = new ArrayList<>();
         listaStefamons.forEach(stefaMon -> stefaMons.add((this.execute(stefaMon))));
-        return Collections.unmodifiableList(stefaMons);
+        return stefaMons;
     }
 }
