@@ -58,4 +58,19 @@ public class Stefamon {
     public String getUrlFoto() {
         return urlFoto;
     }
+
+    @Override
+    public String toString() {
+        return "Stefamon{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", vida=" + vida +
+                ", ataque=" + ataque +
+                ", defesa=" + defesa +
+                ", inteligencia=" + inteligencia +
+                ", poder=" + poder +
+                ", velocidade=" + velocidade +
+                ", urlFoto='" + urlFoto + '\'' +
+                '}';
+    }
 }
