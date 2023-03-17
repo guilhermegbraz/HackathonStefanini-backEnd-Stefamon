@@ -7,8 +7,10 @@ import com.stefanini.core.casosDeUso.listarJogadores.ListarJogadores;
 import com.stefanini.core.casosDeUso.login.LoginJogador;
 import com.stefanini.core.casosDeUso.viewJogador.JogadorViewDto;
 import com.stefanini.core.exceptions.RegraDeNegocioException;
+import com.stefanini.core.service.JogadorService;
 import com.stefanini.dataproviders.entity.JogadorEntity;
 import com.stefanini.dataproviders.repository.JPAJogadorRepository;
+import com.stefanini.dataproviders.repository.JPAStefamonRepository;
 import com.stefanini.entrypoint.dto.CriarJogadorDto;
 import com.stefanini.core.casosDeUso.login.LoginJogadorDto;
 import com.stefanini.entrypoint.handlers.ConstraintViolationHandler;
@@ -36,7 +38,11 @@ public class JogadorResource {
     @Inject
     RegraDeNegocioHandler regraDeNegocioHandler;
     @Inject
+    JPAStefamonRepository stefamonRepository;
+    @Inject
     ConstraintViolationHandler constraintViolationHandler;
+    @Inject
+    JogadorService jogadorService;
 // casos de uso:
     @Inject
     CriarJogador criarJogador;
@@ -46,8 +52,6 @@ public class JogadorResource {
     DetalharUmJogador detalharUmJogador;
     @Inject
     DeletarJogador deletarJogador;
-    @Inject
-    LoginJogador loginJogador;
 
 
     @POST
@@ -82,7 +86,6 @@ public class JogadorResource {
     }
 
 
-
     @PUT
     public Response alterar(@Valid JogadorEntity jogador) {
         jogadorRepository.update(jogador);
@@ -99,20 +102,5 @@ public class JogadorResource {
             return this.regraDeNegocioHandler.toResponse(exception);
         }
     }
-
-    @POST
-    @Path("/login")
-    public Response login(LoginJogadorDto loginJogadorDto, HttpServletRequest request) {
-        try{
-            var jogador = this.loginJogador.usuarioCadastrado(loginJogadorDto);
-            request.getSession().setAttribute("USER", jogador);
-            return Response.ok(jogador).header("JSESSIONID", request.getSession().getId()).build();
-
-        } catch (RegraDeNegocioException exception) {
-            return this.regraDeNegocioHandler.toResponse(exception);
-        }
-    }
-
-
 
 }

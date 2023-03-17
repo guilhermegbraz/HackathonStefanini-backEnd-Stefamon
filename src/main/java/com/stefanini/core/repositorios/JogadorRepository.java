@@ -2,6 +2,7 @@ package com.stefanini.core.repositorios;
 
 import com.stefanini.core.casosDeUso.login.LoginJogadorDto;
 import com.stefanini.core.entidades.Jogador;
+import com.stefanini.core.entidades.Stefamon;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface JogadorRepository {
     void deletar(Long id);
 
     Jogador jogadorCadastrado(LoginJogadorDto loginJogadorDto);
+
+    void comprarStefamon(Jogador jogador, Stefamon stefamon);
 }

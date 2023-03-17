@@ -1,4 +1,4 @@
-package com.stefanini.service;
+package com.stefanini.core.service;
 
 import com.stefanini.dataproviders.entity.JogadorEntity;
 import com.stefanini.core.exceptions.RegraDeNegocioException;

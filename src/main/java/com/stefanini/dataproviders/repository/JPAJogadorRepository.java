@@ -2,15 +2,21 @@ package com.stefanini.dataproviders.repository;
 
 import com.stefanini.core.casosDeUso.login.LoginJogadorDto;
 import com.stefanini.core.entidades.Jogador;
+import com.stefanini.core.entidades.Stefamon;
 import com.stefanini.dataproviders.dao.GenericDAO;
 
 import com.stefanini.dataproviders.entity.JogadorEntity;
+import com.stefanini.dataproviders.entity.StefamonEntity;
 import com.stefanini.dataproviders.parsers.JogadorEntityToJogador;
 import com.stefanini.dataproviders.parsers.JogadorToJogadorEntity;
+import com.stefanini.dataproviders.parsers.StefamonToStefamonEntity;
+import org.hibernate.HibernateException;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @ApplicationScoped
@@ -19,6 +25,9 @@ public class JPAJogadorRepository extends GenericDAO<JogadorEntity, Long> implem
     JogadorToJogadorEntity jogadorToJogadorEntity;
     @Inject
     JogadorEntityToJogador jogadorEntityToJogador;
+    @Inject
+    JPAStefamonRepository stefamonRepository;
+
 
     @Override
     public Long cadastrarJogador(Jogador jogador) {
@@ -63,5 +72,16 @@ public class JPAJogadorRepository extends GenericDAO<JogadorEntity, Long> implem
         query.setParameter("senha", loginJogadorDto.getSenha());
         JogadorEntity jogadorEntity = query.getSingleResult();
         return this.jogadorEntityToJogador.execute(jogadorEntity);
+    }
+
+    @Override
+    public void comprarStefamon(Jogador jogador, Stefamon stefamon) {
+        JogadorEntity jogadorEntity = this.findById(jogador.getId());
+        System.out.println(jogador.getSaldo());
+        jogadorEntity.setSaldo(jogador.getSaldo());
+        StefamonEntity stefamonEntity = this.stefamonRepository.findById(stefamon.getId());
+        jogadorEntity.getStefamons().add(stefamonEntity);
+
+        this.update(jogadorEntity);
     }
 }

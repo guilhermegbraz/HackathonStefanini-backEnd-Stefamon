@@ -18,7 +18,7 @@ public class Jogador {
     public Jogador(String nickname, String senha, List<Stefamon> stefamons) {
         this.nickname = nickname;
         this.senha = senha;
-        this.saldo = BigDecimal.valueOf(2300);
+        this.saldo = BigDecimal.valueOf(350);
         this.listaStefamons = stefamons;
     }
 
@@ -41,7 +41,7 @@ public class Jogador {
     }
 
     public List<Stefamon> getListaStefaMons() {
-        return Collections.unmodifiableList(listaStefamons);
+        return this.listaStefamons;
     }
 
     public void addStefamon(Stefamon stefamon) {
@@ -62,5 +62,16 @@ public class Jogador {
 
     public void decrementarSaldo(BigDecimal decremento) {
         this.saldo = saldo.subtract(decremento);
+    }
+
+    @Override
+    public String toString() {
+        return "Jogador{" +
+                "id=" + id +
+                ", nickname='" + nickname + '\'' +
+                ", senha='" + senha + '\'' +
+                ", listaStefamons=" + listaStefamons +
+                ", saldo=" + saldo +
+                '}';
     }
 }
