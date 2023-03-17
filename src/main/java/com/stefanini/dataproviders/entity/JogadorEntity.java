@@ -59,4 +59,8 @@ public class JogadorEntity {
     public List<StefamonEntity> getStefamons() {
         return stefamons;
     }
+
+    public void setSaldo(BigDecimal saldo) {
+        this.saldo = saldo;
+    }
 }

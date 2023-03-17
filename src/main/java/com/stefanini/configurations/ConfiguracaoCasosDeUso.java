@@ -1,5 +1,10 @@
 package com.stefanini.configurations;
 
+import com.stefanini.core.casosDeUso.calcularPrecoStefamon.CalculaPrecoStefamon;
+import com.stefanini.core.casosDeUso.comprarStefamons.ComprarStefamons;
+import com.stefanini.core.casosDeUso.comprarStefamons.validacoes.ValidacoesCompra;
+import com.stefanini.core.casosDeUso.comprarStefamons.validacoes.ValidadorLimiteStefamonPorJogador;
+import com.stefanini.core.casosDeUso.comprarStefamons.validacoes.ValidadorSaldoSuficiente;
 import com.stefanini.core.casosDeUso.criarJogador.CriarJogador;
 import com.stefanini.core.casosDeUso.criarJogador.validacoes.*;
 import com.stefanini.core.casosDeUso.criptografarSenha.Criptografador;
@@ -10,10 +15,10 @@ import com.stefanini.core.casosDeUso.listarJogadores.ListarJogadores;
 import com.stefanini.core.casosDeUso.login.LoginJogador;
 import com.stefanini.core.casosDeUso.parsers.JogadorToJogadorViewDto;
 import com.stefanini.core.repositorios.JogadorRepository;
+import com.stefanini.core.repositorios.StefamonRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.Produces;
-import java.util.Arrays;
 import java.util.List;
 
 public class ConfiguracaoCasosDeUso {
@@ -59,6 +64,31 @@ public class ConfiguracaoCasosDeUso {
     @Produces
     @ApplicationScoped
     public LoginJogador loginJogador(JogadorRepository jogadorRepository, Criptografador criptografador) {
-        return new LoginJogador(jogadorRepository, criptografador);
+        return new LoginJogador(jogadorRepository, criptografador, new JogadorToJogadorViewDto());
+    }
+
+    @Produces
+    @ApplicationScoped
+    public List<ValidacoesCompra> validacoesCompras(JogadorRepository jogadorRepository,
+                                StefamonRepository stefamonRepository, CalculaPrecoStefamon calculaPrecoStefamon) {
+
+        return List.of(new ValidadorSaldoSuficiente(calculaPrecoStefamon, jogadorRepository, stefamonRepository),
+                new ValidadorLimiteStefamonPorJogador(jogadorRepository));
+    }
+
+    @Produces
+    @ApplicationScoped
+    public CalculaPrecoStefamon calculaPrecoStefamon() {
+        return new CalculaPrecoStefamon();
+    }
+
+    @Produces
+    @ApplicationScoped
+    public ComprarStefamons comprarStefamons(JogadorRepository jogadorRepository,
+                                             CalculaPrecoStefamon calculaPrecoStefamon,
+                                             List<ValidacoesCompra> validacoesCompras,
+                                             StefamonRepository stefamonRepository) {
+
+        return new ComprarStefamons(jogadorRepository, stefamonRepository, validacoesCompras, calculaPrecoStefamon);
     }
 }

@@ -7,8 +7,10 @@ import com.stefanini.core.casosDeUso.listarJogadores.ListarJogadores;
 import com.stefanini.core.casosDeUso.login.LoginJogador;
 import com.stefanini.core.casosDeUso.viewJogador.JogadorViewDto;
 import com.stefanini.core.exceptions.RegraDeNegocioException;
+import com.stefanini.core.service.JogadorService;
 import com.stefanini.dataproviders.entity.JogadorEntity;
 import com.stefanini.dataproviders.repository.JPAJogadorRepository;
+import com.stefanini.dataproviders.repository.JPAStefamonRepository;
 import com.stefanini.entrypoint.dto.CriarJogadorDto;
 import com.stefanini.core.casosDeUso.login.LoginJogadorDto;
 import com.stefanini.entrypoint.handlers.ConstraintViolationHandler;
@@ -17,12 +19,16 @@ import com.stefanini.entrypoint.parsers.CriarJogadorDtoToJogador;
 
 import javax.inject.Inject;
 import javax.persistence.PersistenceException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
 
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 @Path("/jogador")
 public class JogadorResource {
     @Inject
@@ -32,7 +38,11 @@ public class JogadorResource {
     @Inject
     RegraDeNegocioHandler regraDeNegocioHandler;
     @Inject
+    JPAStefamonRepository stefamonRepository;
+    @Inject
     ConstraintViolationHandler constraintViolationHandler;
+    @Inject
+    JogadorService jogadorService;
 // casos de uso:
     @Inject
     CriarJogador criarJogador;
@@ -42,8 +52,6 @@ public class JogadorResource {
     DetalharUmJogador detalharUmJogador;
     @Inject
     DeletarJogador deletarJogador;
-    @Inject
-    LoginJogador loginJogador;
 
 
     @POST
@@ -78,7 +86,6 @@ public class JogadorResource {
     }
 
 
-
     @PUT
     public Response alterar(@Valid JogadorEntity jogador) {
         jogadorRepository.update(jogador);
@@ -95,18 +102,5 @@ public class JogadorResource {
             return this.regraDeNegocioHandler.toResponse(exception);
         }
     }
-
-    @POST
-    @Path("/login")
-    public Response login(LoginJogadorDto loginJogadorDto) {
-        try{
-            this.loginJogador.usuarioCadastrado(loginJogadorDto);
-            return Response.status(Response.Status.NO_CONTENT).build();
-        } catch (RegraDeNegocioException exception) {
-            return this.regraDeNegocioHandler.toResponse(exception);
-        }
-    }
-
-
 
 }

@@ -1,6 +1,6 @@
 package com.stefanini.core.casosDeUso.viewJogador;
 
-import com.stefanini.core.entidades.StefaMon;
+import com.stefanini.core.entidades.Stefamon;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -9,13 +9,13 @@ public class JogadorViewDto {
 
     private Long id;
     private String nickname;
-    private List<StefaMon> listaStefaMons;
+    private List<Stefamon> listaStefamons;
     private BigDecimal saldo;
 
-    public JogadorViewDto(Long id, String nickname, List<StefaMon> listaStefaMons, BigDecimal saldo) {
+    public JogadorViewDto(Long id, String nickname, List<Stefamon> listaStefamons, BigDecimal saldo) {
         this.id = id;
         this.nickname = nickname;
-        this.listaStefaMons = listaStefaMons;
+        this.listaStefamons = listaStefamons;
         this.saldo = saldo;
     }
 
@@ -27,8 +27,8 @@ public class JogadorViewDto {
         return nickname;
     }
 
-    public List<StefaMon> getListaStefaMons() {
-        return listaStefaMons;
+    public List<Stefamon> getListaStefaMons() {
+        return listaStefamons;
     }
 
     public BigDecimal getSaldo() {
