@@ -7,6 +7,9 @@ import java.math.BigDecimal;
 public class CalculaPrecoStefamon {
 
     public BigDecimal execute(Stefamon stefamon) {
-        return null;
+        BigDecimal preco = new BigDecimal((stefamon.getAtaque() + stefamon.getDefesa() + stefamon.getInteligencia() +
+                stefamon.getVelocidade() + stefamon.getVida() + stefamon.getPoder())/6);
+
+        return preco;
     }
 }
